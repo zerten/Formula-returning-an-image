@@ -1,0 +1,56 @@
+Create a Formula Field That Returns an Image
+Create a helper formula field that looks at 5 key fields on the Lead object and evaluates their completeness. Then create a formula field that references the helper formula and returns an image.
+
+Note: The images you use in this challenge are already available in your Developer Edition org.
+Create a helper formula field:
+Object: Lead
+Field Label: Lead Quality Helper
+Field Name: Lead_Quality_Helper
+Formula Return Type: Number
+Formula:
+Evaluate these 5 fields: Email, Phone, Company, Title, and Industry
+For each field, return 0 if blank or 1 if not blank
+Return the sum of those values
+Create a formula field to display an image:
+Object: Lead
+Field Label: Lead Quality
+Field Name: Lead_Quality
+Formula Return Type: Text
+Formula: Reference the helper formula to determine the numeric value for lead quality. Then return the image that corresponds to the numeric value:
+0 = /img/samples/stars_000.gif with alternate text '0 stars'
+1 = /img/samples/stars_100.gif with alternate text '1 star'
+2 = /img/samples/stars_200.gif with alternate text '2 stars'
+3 = /img/samples/stars_300.gif with alternate text '3 stars'
+4 = /img/samples/stars_400.gif with alternate text '4 stars'
+5 = /img/samples/stars_500.gif with alternate text '5 stars'
+Add the Lead Quality field to the Lead Layout page layout.
+
+
+Create a helper formula field:
+Object: Lead
+Field Label: Lead Quality Helper
+Field Name: Lead_Quality_Helper
+Formula Return Type: Number
+Formula:
+Evaluate these 5 fields: Email, Phone, Company, Title, and Industry
+For each field, return 0 if blank or 1 if not blank
+Return the sum of those values
+Ustte yazan icin formula:
+IF (!ISBLANK (Email),1,0) + IF(!ISBLANK (Phone), 1, 0) +  IF(!ISBLANK (Company), 1, 0) +  IF(!ISBLANK(Title), 1, 0) + IF(!ISBLANK(TEXT(Industry)) , 1, 0)
+
+Create a formula field to display an image:
+Object: Lead
+Field Label: Lead Quality
+Field Name: Lead_Quality
+Formula Return Type: Text
+Ustte yazan icin formula:
+
+IF(Lead_Quality_Helper__c  = 1, IMAGE("/img/samples/stars_100.gif", "1 star"),
+IF(Lead_Quality_Helper__c  = 2, IMAGE("/img/samples/stars_200.gif", "2 stars"),
+IF(Lead_Quality_Helper__c  = 3, IMAGE("/img/samples/stars_300.gif", "3 stars"),
+IF(Lead_Quality_Helper__c  = 4, IMAGE("/img/samples/stars_400.gif", "4 stars"),
+IF(Lead_Quality_Helper__c  = 5, IMAGE("/img/samples/stars_500.gif", "5 stars"),
+IMAGE("img/samples/stars_000.gif", "0 stars"))))))
+
+mesela lead create et yada edilenlerin detail sayfasina baktiginda bir lead in kac field i doldurulmus ona gore o kadar yildiz isaretli oluyor.
+
